@@ -57,6 +57,7 @@ void SteamWorksGameServer::Reset(void)
 	this->m_pHTTP = NULL;
 	this->m_pMatchmaking = NULL;
 	this->m_pGC = NULL;
+	this->m_pUGC = NULL;
 }
 
 ISteamClient *SteamWorksGameServer::GetSteamClient(void)
@@ -222,6 +223,24 @@ ISteamGameCoordinator *SteamWorksGameServer::GetGameCoordinator(void)
 	}
 
 	return this->m_pGC;
+}
+
+ISteamUGC * SteamWorksGameServer::GetUGC(void)
+{
+	if (this->m_pUGC == NULL && this->GetSteamClient() != NULL)
+	{
+		HSteamUser hSteamUser;
+		HSteamPipe hSteamPipe;
+		GetUserAndPipe(hSteamUser, hSteamPipe);
+
+		const char* pVersion = STEAMUGC_INTERFACE_VERSION;
+
+		
+		GetGameSpecificConfigInterface("SteamGameServerInterfaceVersion", pVersion);
+		this->m_pUGC = this->GetSteamClient()->GetISteamUGC(hSteamUser, hSteamPipe, pVersion);
+	}
+
+	return this->m_pUGC;
 }
 
 void SteamWorksGameServer::GetUserAndPipe(HSteamUser &hSteamUser, HSteamPipe &hSteamPipe)

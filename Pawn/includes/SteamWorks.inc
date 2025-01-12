@@ -245,6 +245,7 @@ native bool SteamWorks_SetHTTPRequestUserAgentInfo(Handle hHandle, const char[] 
 native bool SteamWorks_SetHTTPRequestRequiresVerifiedCertificate(Handle hHandle, bool bRequireVerifiedCertificate);
 native bool SteamWorks_SetHTTPRequestAbsoluteTimeoutMS(Handle hHandle, int unMilliseconds);
 
+native Handle SteamWorks_TestUGC();
 
 typeset SteamWorksHTTPRequestCompleted
 {
@@ -377,5 +378,7 @@ public void __ext_SteamWorks_SetNTVOptional()
 
 	MarkNativeAsOptional("SteamWorks_GetHTTPResponseBodyCallback");
 	MarkNativeAsOptional("SteamWorks_WriteHTTPResponseBodyToFile");
+	
+	MarkNativeAsOptional("SteamWorks_TestUGC");
 }
 #endif

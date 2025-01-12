@@ -69,6 +69,9 @@
     <ClCompile Include="..\asm\asm.c">
       <Filter>Source Files\asm</Filter>
     </ClCompile>
+    <ClCompile Include="..\swugc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\extension.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="..\asm\asm.h">
       <Filter>Header Files\asm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\swugc.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

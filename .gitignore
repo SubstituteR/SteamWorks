@@ -26,3 +26,12 @@
 [Rr]elease - */
 [Dd]ebug/
 [Rr]elease/
+.vs/
+
+# temp build folders
+build/
+steamworks-sdk/
+mmsource-central/
+hl2sdk-sdk2013/
+sourcemod-central/
+objdir/

@@ -40,6 +40,7 @@ class SteamWorksGameServer
 		ISteamHTTP *GetHTTP(void);
 		ISteamMatchmaking *GetMatchmaking(void);
 		ISteamGameCoordinator *GetGameCoordinator(void);
+		ISteamUGC* GetUGC(void);
 
 	public:
 		void Reset(void);
@@ -55,6 +56,7 @@ class SteamWorksGameServer
 		ISteamHTTP *m_pHTTP;
 		ISteamMatchmaking *m_pMatchmaking;
 		ISteamGameCoordinator *m_pGC;
+		ISteamUGC* m_pUGC;
 		bool loaded;
 };
 
