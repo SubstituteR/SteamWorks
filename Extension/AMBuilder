@@ -16,6 +16,7 @@ project.sources += [
   'swhttprequest.cpp',
   'swgchooks.cpp',
   'swugc.cpp',
+  'swugcqueryhandle.cpp',
   'sdk/smsdk_ext.cpp',
   'CDetour/detours.cpp',
   'asm/asm.c'

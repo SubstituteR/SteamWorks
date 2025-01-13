@@ -28,6 +28,45 @@ static ISteamUGC* GetUGCPointer(void)
     return g_SteamWorks.pSWGameServer->GetUGC();
 }
 
+static HandleType_t GetSteamUGCQueryHandle(void)
+{
+    return g_SteamWorks.pSWUGCQueryHandle->GetUGCQueryHandle();
+}
+
+static UGCQueryHandle_t* GetQueryHandlePointer(IPluginContext *pContext, cell_t Handle)
+{
+    HandleError err;
+    HandleSecurity sec(pContext->GetIdentity(), myself->GetIdentity());
+
+    UGCQueryHandle_t* pRequest;
+
+    if ((err = handlesys->ReadHandle(Handle, GetSteamUGCQueryHandle(), &sec, (void**)&pRequest))
+        != HandleError_None)
+    {
+        printf("BAD BAD BAD BAD BAD");
+        pContext->ThrowNativeError("Invalid Handle %x (error: %d)", Handle, err);
+        return NULL;
+    }
+
+    return pRequest;
+}
+
+static std::vector<PublishedFileId_t> itemIdStringsToIds(IPluginContext* pContext, const cell_t* params)
+{
+    std::int32_t size = params[2];
+    cell_t* itemIdStrings;
+    std::vector<PublishedFileId_t> itemIds(size);
+    pContext->LocalToPhysAddr(params[1], &itemIdStrings);
+
+	for(auto i = 0; i < size; ++i)
+	{
+        char* itemIdString;
+        pContext->LocalToString(itemIdStrings[i], &itemIdString);
+        itemIds.push_back(std::stoll(itemIdString));
+    }
+    return itemIds;
+}
+
 static cell_t sm_TestUGC(IPluginContext* pContext, const cell_t* params)
 {
     if (!has_init)
@@ -69,6 +108,43 @@ static cell_t sm_InitWorkshopForGameServer(IPluginContext* pContext, const cell_
     return has_init;
 }
 
+static cell_t sm_CreateQueryDetailsRequest(IPluginContext* pContext, const cell_t* params)
+{
+    if (!has_init)
+        return has_init;
+
+    const auto ugc = GetUGCPointer();
+    if (!ugc)
+        return false;
+
+    auto files = itemIdStringsToIds(pContext, params);
+
+    auto queryHandle = ugc->CreateQueryUGCDetailsRequest(files.data(), files.size());
+
+    if (queryHandle == k_UGCQueryHandleInvalid)
+        return BAD_HANDLE;
+
+    auto pointer = new UGCQueryHandle_t(queryHandle);
+
+    Handle_t handle = handlesys->CreateHandle(GetSteamUGCQueryHandle(), pointer, pContext->GetIdentity(), myself->GetIdentity(), NULL);
+
+	if (handle != BAD_HANDLE)
+        return static_cast<cell_t>(handle);
+
+
+    ugc->ReleaseQueryUGCRequest(*pointer);
+    delete pointer;
+    return BAD_HANDLE;
+}
+
+static cell_t sm_TestHandle(IPluginContext* pContext, const cell_t* params)
+{
+    UGCQueryHandle_t* pRequest = GetQueryHandlePointer(pContext, params[1]);
+    printf("debugging two %p: %llu\n", pRequest, *pRequest);
+    return 0;
+
+}
+
 static cell_t sm_DownloadItem(IPluginContext* pContext, const cell_t* params)
 {
     if (!has_init)
@@ -95,12 +171,13 @@ static cell_t sm_CreateHardlink(IPluginContext* pContext, const cell_t* params)
     return 0;
 }
 
-
 static sp_nativeinfo_t ugcnatives[] = {
     {"SteamWorks_TestUGC", sm_TestUGC},
     {"CreateHardlink", sm_CreateHardlink},
     {"SteamWorks_InitWorkshopForGameServer", sm_InitWorkshopForGameServer},
     {"SteamWorks_UGC_DownloadItem", sm_DownloadItem},
+    {"SteamWorks_UGC_CreateQueryDetailsRequest", sm_CreateQueryDetailsRequest},
+    {"SteamWorks_UGC_TEST2", sm_TestHandle},
 	{NULL,											NULL}
 };
 

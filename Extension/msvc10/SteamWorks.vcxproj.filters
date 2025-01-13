@@ -72,6 +72,9 @@
     <ClCompile Include="..\swugc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\swugcqueryhandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\extension.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files\asm</Filter>
     </ClInclude>
     <ClInclude Include="..\swugc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\swugcqueryhandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

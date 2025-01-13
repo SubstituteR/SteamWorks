@@ -202,6 +202,7 @@
     <ClCompile Include="..\swhttp.cpp" />
     <ClCompile Include="..\swhttprequest.cpp" />
     <ClCompile Include="..\swugc.cpp" />
+    <ClCompile Include="..\swugcqueryhandle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\asm\asm.h" />
@@ -220,6 +221,7 @@
     <ClInclude Include="..\swhttp.h" />
     <ClInclude Include="..\swhttprequest.h" />
     <ClInclude Include="..\swugc.h" />
+    <ClInclude Include="..\swugcqueryhandle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

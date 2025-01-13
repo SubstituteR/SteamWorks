@@ -250,6 +250,10 @@ native bool CreateHardlink(const char[] source, const char[] dest);
 native bool SteamWorks_InitWorkshopForGameServer(int depot, const char[] location);
 native bool SteamWorks_UGC_DownloadItem(const char[] item, bool highPriority);
 
+native Handle SteamWorks_UGC_CreateQueryDetailsRequest(const char[][] items, int count);
+native bool SteamWorks_UGC_TEST2(Handle hRequest);
+
+
 typeset SteamWorksHTTPRequestCompleted
 {
 	function void (Handle hRequest, bool bFailure, bool bRequestSuccessful, EHTTPStatusCode eStatusCode);
@@ -386,5 +390,9 @@ public void __ext_SteamWorks_SetNTVOptional()
 	MarkNativeAsOptional("SteamWorks_InitWorkshopForGameServer");
 	MarkNativeAsOptional("SteamWorks_UGC_DownloadItem");
 	MarkNativeAsOptional("CreateHardlink");
+	
+	MarkNativeAsOptional("SteamWorks_UGC_CreateQueryDetailsRequest");
+	MarkNativeAsOptional("SteamWorks_UGC_TEST2");
+	
 }
 #endif
