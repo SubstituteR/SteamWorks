@@ -57,6 +57,8 @@ bool SteamWorks::SDK_OnLoad(char *error, size_t maxlength, bool late)
 	this->pSSNatives = new SteamWorksSSNatives;
 	this->pGCHooks = new SteamWorksGCHooks;
 	this->pGCNatives = new SteamWorksGCNatives;
+
+	this->pSWUGCQueryHandle = new SteamWorksUGCQueryHandle;
 	this->pSWUGCNatives = new SteamWorksUGCNatives;
 	return true;
 }
@@ -76,7 +78,9 @@ void SteamWorks::SDK_OnUnload()
 	delete this->pSWGameServer;
 	delete this->pSWGameData;
 
+
 	delete this->pSWUGCNatives;
+	delete this->pSWUGCQueryHandle;
 }
 
 CSteamID SteamWorks::CreateCommonCSteamID(IGamePlayer *pPlayer, const cell_t *params, unsigned char universeplace = 2, unsigned char typeplace = 3)

@@ -53,6 +53,7 @@
 #include "swgsdetours.h"
 #include "swhttp.h"
 #include "swugc.h"
+#include "swugcqueryhandle.h"
 
 /**
  * @brief Sample implementation of the SDK Extension.
@@ -147,6 +148,8 @@ public:
 	SteamWorksHTTPNatives *pSWHTTPNatives;
 	SteamWorksGCHooks *pGCHooks;
 	SteamWorksGCNatives *pGCNatives;
+
+	SteamWorksUGCQueryHandle* pSWUGCQueryHandle;
 	SteamWorksUGCNatives *pSWUGCNatives;
 };
 
