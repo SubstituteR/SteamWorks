@@ -246,6 +246,9 @@ native bool SteamWorks_SetHTTPRequestRequiresVerifiedCertificate(Handle hHandle,
 native bool SteamWorks_SetHTTPRequestAbsoluteTimeoutMS(Handle hHandle, int unMilliseconds);
 
 native Handle SteamWorks_TestUGC();
+native bool CreateHardlink(const char[] source, const char[] dest);
+native bool SteamWorks_InitWorkshopForGameServer(int depot, const char[] location);
+native bool SteamWorks_UGC_DownloadItem(const char[] item, bool highPriority);
 
 typeset SteamWorksHTTPRequestCompleted
 {
@@ -380,5 +383,8 @@ public void __ext_SteamWorks_SetNTVOptional()
 	MarkNativeAsOptional("SteamWorks_WriteHTTPResponseBodyToFile");
 	
 	MarkNativeAsOptional("SteamWorks_TestUGC");
+	MarkNativeAsOptional("SteamWorks_InitWorkshopForGameServer");
+	MarkNativeAsOptional("SteamWorks_UGC_DownloadItem");
+	MarkNativeAsOptional("CreateHardlink");
 }
 #endif

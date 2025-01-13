@@ -34,6 +34,7 @@ for sdk_name in SteamWorks.sdks:
 	
   if binary.compiler.target.platform == 'windows':
     binary.compiler.postlink += os.path.join(SteamWorks.steamworks_root, 'redistributable_bin', 'steam_api.lib'),;
+    binary.compiler.cxxflags += ['/std:c++20'];
 	
   if binary.compiler.target.platform == 'mac':
     binary.compiler.postlink += os.path.join(SteamWorks.steamworks_root, 'redistributable_bin', 'osx', 'libsteam_api.dylib'),;

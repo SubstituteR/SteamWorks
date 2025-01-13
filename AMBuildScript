@@ -260,10 +260,10 @@ class SteamWorksConfig(object):
       '/W3',
     ]
     cxx.cxxflags += [
-	  '/std:c++20',
       '/EHsc',
       '/GR-',
       '/TP',
+	  '/std:c++20' #I'm not sure why this doesn't get passed along, temporarily added this to AMBuilder as well.
     ]
     cxx.linkflags += [
       '/MACHINE:X86',
